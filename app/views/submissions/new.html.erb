@@ -1,0 +1,92 @@
+<h1>Confirm the following information</h1>
+
+<p id="notice"><%= notice %></p>
+<% if flash[:error].present? %>
+    <div id="error_explanation">
+      <p><%= flash[:error] %></p>
+    </div>
+<% end %>
+
+<p>
+  <strong>First name:</strong>
+  <%= @parent.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @parent.last_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @parent.address %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @parent.email %>
+</p>
+
+<p>
+  <strong>Home phone number:</strong>
+  <%= @parent.home_phone_number %>
+</p>
+
+<p>
+  <strong>Cell phone number:</strong>
+  <%= @parent.cell_phone_number %>
+</p>
+
+<p>
+  <strong>Work phone number:</strong>
+  <%= @parent.work_phone_number %>
+</p>
+
+<div class="camper-list">
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Week</th>
+      <th>Ages</th>
+      <th>Dates</th>
+      <th>Fee</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @registration_cart.campers.reload.each do |camper| %>
+        <tr>
+          <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
+          <td><%= camper.camp_session.name %></td>
+          <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
+          <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
+          <td><%= number_to_currency(camper.camp_session.fee) %></td>
+        </tr>
+    <% end %>
+    <tr class="admin_fee">
+      <td colspan="4">Admin Fee</td>
+      <td class="admin_fee_cell"><%= number_to_currency(@registration_cart.admin_fee) %></td>
+    </tr>
+    <tr class="total_amount">
+      <td colspan="4">Total</td>
+      <td class="total_cell"><%= number_to_currency(@registration_cart.total_price) %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Back', registration_cart_path(@registration_cart) %>
+<%= form_for(@submission) do |f| %>
+    <%= f.hidden_field(:id) %>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-image= "<%= asset_path('CW-logo.png') %>"
+            data-name="Camp Wannakumbac"
+            data-description="Payment by <%= "#{@parent.first_name} #{@parent.last_name}" %>"
+            data-amount="<%= @registration_cart.total_price * 100 %>"
+            data-label="Pay Now"
+            data-currency="cad"
+            data-email="<%= @parent.email %>"
+            data-locale="auto"></script>
+<% end %>

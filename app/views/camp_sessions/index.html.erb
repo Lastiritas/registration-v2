@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Camp Sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Capacity</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Year</th>
+      <th>Remaining</th>
+      <th>Gender</th>
+      <th>Fee</th>
+      <th>Minimum age</th>
+      <th>Maximum age</th>
+      <th>Enabled</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @camp_sessions.each do |camp_session| %>
+      <tr>
+        <td><%= camp_session.name %></td>
+        <td><%= camp_session.capacity %></td>
+        <td><%= camp_session.start_date %></td>
+        <td><%= camp_session.end_date %></td>
+        <td><%= camp_session.year %></td>
+        <td><%= camp_session.remaining %></td>
+        <td><%= camp_session.gender %></td>
+        <td><%= camp_session.fee %></td>
+        <td><%= camp_session.minimum_age %></td>
+        <td><%= camp_session.maximum_age %></td>
+        <td><%= camp_session.enabled %></td>
+        <td><%= link_to 'Show', camp_session %></td>
+        <td><%= link_to 'Edit', edit_camp_session_path(camp_session) %></td>
+        <td><%= link_to 'Destroy', camp_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Camp Session', new_camp_session_path %>

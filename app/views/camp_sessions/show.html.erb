@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @camp_session.name %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @camp_session.capacity %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @camp_session.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @camp_session.end_date %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @camp_session.year %>
+</p>
+
+<p>
+  <strong>Remaining:</strong>
+  <%= @camp_session.remaining %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @camp_session.gender %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @camp_session.fee %>
+</p>
+
+<p>
+  <strong>Minimum age:</strong>
+  <%= @camp_session.minimum_age %>
+</p>
+
+<p>
+  <strong>Maximum age:</strong>
+  <%= @camp_session.maximum_age %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @camp_session.enabled %>
+</p>
+
+<%= link_to 'Edit', edit_camp_session_path(@camp_session) %> |
+<%= link_to 'Back', camp_sessions_path %>

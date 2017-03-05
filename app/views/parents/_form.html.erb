@@ -1,0 +1,40 @@
+<%= form_for(parent) do |f| %>
+  <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, size: 20 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, size: 20 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_area :address, rows: 3, cols: 40 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email, size: 40 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :home_phone_number %>
+    <%= f.text_field :home_phone_number, size: 40 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cell_phone_number %>
+    <%= f.text_field :cell_phone_number, size: 40 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :work_phone_number %>
+    <%= f.text_field :work_phone_number, size: 40 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit btn_text, class: 'btn' %>
+  </div>
+<% end %>

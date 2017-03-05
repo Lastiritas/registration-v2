@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  camp_session: teen
+  registration_cart: one
+  first_name: Joe
+  last_name: Boyle
+  gender: 1
+  address: 123 Street Name, Winnipeg, MB
+  birth_date: 2005-02-27 18:39:38
+
+two:
+  camp_session: teen
+  registration_cart: two
+  first_name: Dean
+  last_name: Gamey
+  gender: 1
+  address: 456 Street Name, Winnipeg, MB
+  birth_date: 2006-02-27 18:39:38

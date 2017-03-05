@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Register a camper</h1>
+
+<%= render partial: 'form', locals: {camper: @camper, camp_sessions: @camp_sessions} %>
+
+<%= link_to 'Back', registration_cart_path(@registration_cart) %>

@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+<% if flash[:error].present? %>
+    <div id="error_explanation">
+      <p><%= flash[:error] %></p>
+    </div>
+<% end %>
+
+<p>
+  <strong>First name:</strong>
+  <%= @parent.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @parent.last_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @parent.address %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @parent.email %>
+</p>
+
+<p>
+  <strong>Home phone number:</strong>
+  <%= @parent.home_phone_number %>
+</p>
+
+<p>
+  <strong>Cell phone number:</strong>
+  <%= @parent.cell_phone_number %>
+</p>
+
+<p>
+  <strong>Work phone number:</strong>
+  <%= @parent.work_phone_number %>
+</p>
+
+<%= link_to 'Edit', edit_parent_path(@parent) %> |
+<%= link_to 'Add Camper', new_camper_path %>
+<div class="camper-list">
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Week</th>
+      <th>Ages</th>
+      <th>Dates</th>
+      <th>Fee</th>
+      <th colspan="2"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @registration_cart.campers.reload.each do |camper| %>
+        <tr>
+          <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
+          <td><%= camper.camp_session.name %></td>
+          <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
+          <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
+          <td><%= number_to_currency(camper.camp_session.fee) %></td>
+          <td><%= link_to 'Edit', edit_camper_path(camper) %></td>
+          <td><%= link_to 'Remove', camper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'TODO: Return to main screen for parents', registration_carts_path %>
+<%= link_to 'Checkout', new_submission_path %>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+teen:
+  name: Teen Camp
+  capacity: 50
+  start_date: 2017-07-05 17:34:55
+  end_date: 2017-07-11 17:34:55
+  year: 2017
+  remaining: 50
+  gender: 1
+  fee: 345
+  minimum_age: 13
+  maximum_age: 15
+  enabled: true
+
+senior:
+  name: Senior Camp
+  capacity: 50
+  start_date: 2017-07-12 17:34:55
+  end_date: 2017-07-18 17:34:55
+  year: 2017
+  remaining: 50
+  gender: 1
+  fee: 335
+  minimum_age: 12
+  maximum_age: 14
+  enabled: true
