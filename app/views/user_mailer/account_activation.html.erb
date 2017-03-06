@@ -1,0 +1,22 @@
+<h1>Camp Wannakumbac</h1>
+
+<p>
+  Hello <%= @user.first_name %>,
+</p>
+
+<p>
+  Thanks for creating an account for Camp Wannakumbac's online registration.
+  <br>Please click on the link below to activate your account:
+</p>
+
+<%= link_to 'Activate', edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+<p>
+  Note: If the link takes you to the log in screen, try clicking it again. If it does not work
+  send an email to support@wannakumbac.com
+</p>
+
+<p>
+  If you have any questions do not hesitate to contact us.
+  <br>You can send an email to support@wannakumbac.com or call the camp's office at (204) 848-2380
+</p>
