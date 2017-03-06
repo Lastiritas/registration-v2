@@ -1,4 +1,5 @@
 module ParentsHelper
+=begin
   # Return the date from the datetime field
   def getDate(datetime)
     datetime.to_date
@@ -15,4 +16,5 @@ module ParentsHelper
       "#{starting.strftime("%b %d")} - #{ending.strftime("%b %d")}"
     end
   end
+=end
 end

@@ -1,4 +1,5 @@
 module CampersHelper
+=begin
   # Return the date from the datetime field
   def getDate(datetime)
     datetime.to_date
@@ -19,4 +20,5 @@ module CampersHelper
   def genders
     { 'Male' => 1, 'Female' => 2}
   end
+=end
 end

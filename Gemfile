@@ -31,11 +31,14 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+gem 'password_strength'
 
 gem 'pickadate-rails'
 gem 'nokogiri'
 gem 'stripe'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootswatch-rails'
 #gem 'active_hash'
 
 # Use Capistrano for deployment
