@@ -28,6 +28,7 @@ class SessionsController < ApplicationController
 
     if user and user.authenticate(params[:session][:password])
       log_in(user)
+      params[:session][:remember_me] ? remember(user) : forget(user)
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination'
@@ -52,7 +53,7 @@ class SessionsController < ApplicationController
   # DELETE /sessions/1
   # DELETE /sessions/1.json
   def destroy
-    log_out
+    log_out if logged_in?
     respond_to do |format|
       format.html { redirect_to sessions_url, notice: 'Session was successfully destroyed.' } # Redirect to main screen Root
       format.json { head :no_content }
