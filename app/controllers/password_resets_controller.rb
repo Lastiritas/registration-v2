@@ -40,34 +40,34 @@ class PasswordResetsController < ApplicationController
 
   private
 
-  def get_user
-    @user = User.find_by(email: params[:email])
-  end
-
-  # Confirm a valid user.
-  def valid_user
-    unless (@user && @user.activated? &&
-        @user.authenticated?(:reset, params[:id]))
-      redirect_to root_url
+    def get_user
+      @user = User.find_by(email: params[:email])
     end
-  end
 
-  def user_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
-
-  # Returns true if password and confirmation are blank
-  def both_passwords_blank?
-    params[:user][:passwords].blank? &&
-        params[:user][:password_confirmation].blank?
-  end
-
-  # Check the expiration of the token
-  def check_expiration
-    if @user.password_reset_expired?
-      flash[:danger] = 'Password reset has expired'
-      Rails.logger.info "User tried to use an expired password reset link #{@user.email}"
-      redirect_to new_password_reset_url
+    # Confirm a valid user.
+    def valid_user
+      unless (@user && @user.activated? &&
+          @user.authenticated?(:reset, params[:id]))
+        redirect_to root_url
+      end
     end
-  end
+
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
+
+    # Returns true if password and confirmation are blank
+    def both_passwords_blank?
+      params[:user][:passwords].blank? &&
+          params[:user][:password_confirmation].blank?
+    end
+
+    # Check the expiration of the token
+    def check_expiration
+      if @user.password_reset_expired?
+        flash[:danger] = 'Password reset has expired'
+        Rails.logger.info "User tried to use an expired password reset link #{@user.email}"
+        redirect_to new_password_reset_url
+      end
+    end
 end

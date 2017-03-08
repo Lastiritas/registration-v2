@@ -1,5 +1,6 @@
 class RegistrationCartsController < ApplicationController
   include CurrentRegistrationCart
+  before_action :require_log_in
   before_action :validate_parent_is_set_under_registration_cart
 
   # GET /registration_carts/1

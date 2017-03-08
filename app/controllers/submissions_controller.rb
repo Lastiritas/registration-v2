@@ -1,5 +1,6 @@
 class SubmissionsController < ApplicationController
   include CurrentRegistrationCart
+  before_action :require_log_in
   before_action :validate_parent_and_camper_are_set_under_registration_cart, except: [:index]
 
   # GET /submissions
@@ -27,7 +28,7 @@ class SubmissionsController < ApplicationController
         if @submission.save
           RegistrationCart.destroy(session[:registration_cart_id])
           session[:registration_cart_id] = nil
-          format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
+          format.html { redirect_to parents_path, notice: 'Your registration was successfully added.' }
         else
           refund_payment(charge.id)
           format.html { render :new }
@@ -72,7 +73,7 @@ class SubmissionsController < ApplicationController
     end
 
     def refund_payment(charge)
-      if !is_charge_valid(charge) or charge.charge_id == 0
+      if !is_charge_valid(charge) or charge.id == 0
         return
       end
 

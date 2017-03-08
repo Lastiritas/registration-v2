@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306023020) do
+ActiveRecord::Schema.define(version: 20170308040803) do
 
   create_table "camp_sessions", force: :cascade do |t|
     t.string   "name"
@@ -50,9 +50,11 @@ ActiveRecord::Schema.define(version: 20170306023020) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "parent_id"
+    t.integer  "user_id"
     t.index ["camp_session_id"], name: "index_campers_on_camp_session_id"
     t.index ["parent_id"], name: "index_campers_on_parent_id"
     t.index ["registration_cart_id"], name: "index_campers_on_registration_cart_id"
+    t.index ["user_id"], name: "index_campers_on_user_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -66,12 +68,16 @@ ActiveRecord::Schema.define(version: 20170306023020) do
     t.string   "work_phone_number"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "user_id"
     t.index ["registration_cart_id"], name: "index_parents_on_registration_cart_id"
+    t.index ["user_id"], name: "index_parents_on_user_id"
   end
 
   create_table "registration_carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_registration_carts_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -85,7 +91,9 @@ ActiveRecord::Schema.define(version: 20170306023020) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "parent_id"
+    t.integer  "user_id"
     t.index ["parent_id"], name: "index_submissions_on_parent_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,6 +109,10 @@ ActiveRecord::Schema.define(version: 20170306023020) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

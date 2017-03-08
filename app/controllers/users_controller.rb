@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
+  before_action :require_log_in, except: [:new, :create]
   before_action :set_user, only: [:edit, :update]
-  before_action :require_log_in, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user,  only: [:destroy, :index]
+  before_action :admin_user,  only: [:destroy, :index, :show]
 
   # GET /users
   # GET /users.json
@@ -28,16 +28,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        @user.send_activation_email
-        flash[:info] = 'Please check your email to activate your account.'
-        redirect_to root_url
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    puts @user.inspect
+    if @user.save
+      @user.send_activation_email
+      puts @user.inspect
+      flash[:info] = 'Please check your email to activate your account.'
+      redirect_to root_url
+    else
+      render :new
     end
   end
 

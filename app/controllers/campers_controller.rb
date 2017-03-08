@@ -1,6 +1,7 @@
 require 'date'
 class CampersController < ApplicationController
   include CurrentRegistrationCart
+  before_action :require_log_in
   before_action :validate_parent_is_set_under_registration_cart
   before_action :set_camper, only: [:edit, :update, :destroy]
   before_action :set_sessions, except: [:destroy]

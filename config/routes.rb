@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get    'auth/:provider/callback', to: 'sessions#create'
+  get    'auth/failure', to: 'sessions#new'
 
   resources :users
   resources :submissions,         only: [:index, :new, :create]

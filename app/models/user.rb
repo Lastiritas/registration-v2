@@ -65,6 +65,23 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def from_omniauth(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.name = auth.info.name
+        user.email = auth.info.email
+        user.password = new_token
+        user.activated = true
+        user.activated_at = Time.now
+        user.oauth_token = auth.credentials.token
+        user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+        puts user.inspect
+        puts auth.inspect
+        user.save!
+      end
+    end
   end
 
   private
@@ -74,6 +91,6 @@ class User < ApplicationRecord
     end
 
     def email_downcase
-      self.email = email.downcase!
+      self.email = email.downcase
     end
 end

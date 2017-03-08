@@ -1,5 +1,6 @@
 class ParentsController < ApplicationController
   include CurrentRegistrationCart
+  before_action :require_log_in
   before_action :set_or_create_registration_cart, only: [:create, :show, :update]
   before_action :validate_parent_is_set_under_registration_cart, only: [:edit]
   before_action :set_parent, only: [:show, :edit, :update]
@@ -7,7 +8,10 @@ class ParentsController < ApplicationController
   # GET /parents
   # GET /parents.json
   def index
-    @parents = Parent.all
+    @submissions = Submission.joins(:parent)
+                       .where("parents.email = '#{current_user.email}' OR submissions.user_id = #{current_user.id}")
+
+    puts @submissions.inspect
   end
 
   # GET /parents/1

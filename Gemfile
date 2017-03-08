@@ -39,6 +39,8 @@ gem 'nokogiri'
 gem 'stripe'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bootswatch-rails'
+gem 'omniauth-google-oauth2', '~> 0.2.1'
+gem 'omniauth-facebook'
 #gem 'active_hash'
 
 # Use Capistrano for deployment

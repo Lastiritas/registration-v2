@@ -2,38 +2,32 @@
 
 <h1>Home Page for users</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Address</th>
-      <th>Email</th>
-      <th>Home phone number</th>
-      <th>Cell phone number</th>
-      <th>Work phone number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @parents.each do |parent| %>
-      <tr>
-        <td><%= parent.first_name %></td>
-        <td><%= parent.last_name %></td>
-        <td><%= parent.address %></td>
-        <td><%= parent.email %></td>
-        <td><%= parent.home_phone_number %></td>
-        <td><%= parent.cell_phone_number %></td>
-        <td><%= parent.work_phone_number %></td>
-        <td><%= link_to 'Show', parent %></td>
-        <td><%= link_to 'Edit', edit_parent_path(parent) %></td>
-        <td><%= link_to 'Destroy', parent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
 <%= link_to 'New Application', new_parent_path %>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Year</th>
+    <th>Week</th>
+    <th>Dates</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @submissions.each do |submission| %>
+    <% submission.camper_submissions.each do |camper_submission| %>
+      <tr>
+        <td><%= "#{camper_submission.camper.first_name} #{camper_submission.camper.last_name}" %></td>
+        <td><%= camper_submission.camp_session.year %></td>
+        <td><%= camper_submission.camp_session.name %></td>
+        <td><%= getMonthDate(camper_submission.camp_session.start_date, camper_submission.camp_session.end_date) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
