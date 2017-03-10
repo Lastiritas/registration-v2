@@ -1,5 +1,12 @@
-<h1>New Parent</h1>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">Parent/Guardian Information</h3>
 
-<%= render partial: 'form', locals: {parent: @parent, btn_text: 'Add Camper'} %>
+        <%= render partial: 'form', locals: {parent: @parent, btn_text: 'Add Camper', back_link: parents_path} %>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
 
-<%= link_to 'Back', parents_path %>

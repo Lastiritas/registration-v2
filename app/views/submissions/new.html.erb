@@ -1,92 +1,144 @@
-<h1>Confirm the following information</h1>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">Confirm Registration
+            <span>
+              <%= link_to registration_cart_path(@registration_cart), class: 'btn btn-link' do %>
+                <i class="fa fa-pencil fa-fw"></i> Edit
+              <% end %>
+            </span>
+        </h3>
 
-<p id="notice"><%= notice %></p>
-<% if flash[:error].present? %>
-    <div id="error_explanation">
-      <p><%= flash[:error] %></p>
-    </div>
-<% end %>
+        <form class="form-horizontal">
+          <div class="section">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">First Name</label>
+              <div class="col-sm-8">
+                <p class="form-control-static"><%= @parent.first_name %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Last Name</label>
+              <div class="col-sm-8">
+                <p class="form-control-static"><%= @parent.last_name %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Address</label>
+              <div class="col-sm-8">
+                <p class="form-control-static"><%= @parent.address %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">E-mail</label>
+              <div class="col-sm-8">
+                <p class="form-control-static"><%= @parent.email %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Home Phone</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">
+                  <% if @parent.home_phone_number.blank? %>
+                      None
+                  <% else %>
+                      <%= @parent.home_phone_number %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Cell Phone</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">
+                  <% if @parent.cell_phone_number.blank? %>
+                      None
+                  <% else %>
+                      <%= @parent.cell_phone_number %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Work Phone</label>
+              <div class="col-sm-8">
+                <p class="form-control-static">
+                  <% if @parent.work_phone_number.blank? %>
+                      None
+                  <% else %>
+                      <%= @parent.work_phone_number %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
 
-<p>
-  <strong>First name:</strong>
-  <%= @parent.first_name %>
-</p>
+          <div class="camper-list">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Week</th>
+                <th>Ages</th>
+                <th>Dates</th>
+                <th>Fee</th>
+              </tr>
+              </thead>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @parent.last_name %>
-</p>
+              <tbody>
+              <% @registration_cart.campers.each do |camper| %>
+                  <tr>
+                    <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
+                    <td><%= camper.camp_session.name %></td>
+                    <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
+                    <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
+                    <td><%= number_to_currency(camper.camp_session.fee) %></td>
+                  </tr>
+              <% end %>
+                  <tr class="admin_fee">
+                    <td colspan="3"></td>
+                    <td>
+                      <label>Admin Fee</label>
+                    </td>
+                    <td class="admin_fee_cell">
+                      <label><%= number_to_currency(@registration_cart.admin_fee) %></label>
+                    </td>
+                  </tr>
+                  <tr class="total_amount">
+                    <td colspan="3"></td>
+                    <td>
+                      <label>Total</label>
+                    </td>
+                    <td class="total_cell">
+                      <label><%= number_to_currency(@registration_cart.total_price) %></label>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div><!-- camper-list -->
+        </form>
+        <div class="row">
+          <div class="col-md-11 col-sm-11">
+            <div class="pull-right">
+              <%= form_for(@submission) do |f| %>
+                  <%= f.hidden_field(:id) %>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                          data-image= "<%= asset_path('CW-logo.png') %>"
+                          data-name="Camp Wannakumbac"
+                          data-description="Payment by <%= "#{@parent.first_name} #{@parent.last_name}" %>"
+                          data-amount="<%= @registration_cart.total_price * 100 %>"
+                          data-label="Pay Now"
+                          data-currency="cad"
+                          data-email="<%= @parent.email %>"
+                          data-locale="auto"></script>
+              <% end %>
+            </div>
+          </div><!-- col-md-12 -->
+        </div><!-- row -->
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
 
-<p>
-  <strong>Address:</strong>
-  <%= @parent.address %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @parent.email %>
-</p>
-
-<p>
-  <strong>Home phone number:</strong>
-  <%= @parent.home_phone_number %>
-</p>
-
-<p>
-  <strong>Cell phone number:</strong>
-  <%= @parent.cell_phone_number %>
-</p>
-
-<p>
-  <strong>Work phone number:</strong>
-  <%= @parent.work_phone_number %>
-</p>
-
-<div class="camper-list">
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Week</th>
-      <th>Ages</th>
-      <th>Dates</th>
-      <th>Fee</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @registration_cart.campers.reload.each do |camper| %>
-        <tr>
-          <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
-          <td><%= camper.camp_session.name %></td>
-          <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
-          <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
-          <td><%= number_to_currency(camper.camp_session.fee) %></td>
-        </tr>
-    <% end %>
-    <tr class="admin_fee">
-      <td colspan="4">Admin Fee</td>
-      <td class="admin_fee_cell"><%= number_to_currency(@registration_cart.admin_fee) %></td>
-    </tr>
-    <tr class="total_amount">
-      <td colspan="4">Total</td>
-      <td class="total_cell"><%= number_to_currency(@registration_cart.total_price) %></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<%= link_to 'Back', registration_cart_path(@registration_cart) %>
-<%= form_for(@submission) do |f| %>
-    <%= f.hidden_field(:id) %>
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-image= "<%= asset_path('CW-logo.png') %>"
-            data-name="Camp Wannakumbac"
-            data-description="Payment by <%= "#{@parent.first_name} #{@parent.last_name}" %>"
-            data-amount="<%= @registration_cart.total_price * 100 %>"
-            data-label="Pay Now"
-            data-currency="cad"
-            data-email="<%= @parent.email %>"
-            data-locale="auto"></script>
-<% end %>

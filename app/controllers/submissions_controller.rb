@@ -16,23 +16,24 @@ class SubmissionsController < ApplicationController
   end
 
   # POST /submissions
-  # POST /submissions.json
   def create
     charge = charge_payment
+    @parent = @registration_cart.parent
+
     if is_charge_valid(charge)
       puts charge.inspect
       @submission = Submission.create(:charge_id => charge.id, :amount_paid => charge.amount)
-      @submission.add_campers_and_parent_from_registration_cart(@registration_cart)
+      @submission.add_campers_and_parent_from_registration_cart(@registration_cart, current_user)
 
       respond_to do |format|
         if @submission.save
           RegistrationCart.destroy(session[:registration_cart_id])
           session[:registration_cart_id] = nil
-          format.html { redirect_to parents_path, notice: 'Your registration was successfully added.' }
+          format.html { redirect_to parents_path, flash[:success] => 'Your registration was successfully added.' }
         else
-          refund_payment(charge.id)
+          refund_payment(charge)
+          flash.now[:danger] = 'An error happened while trying to process your payment. We have not charged your card yet. Please, try again'
           format.html { render :new }
-          format.json { render json: @submission.errors, status: :unprocessable_entity }
         end
       end
     else
@@ -41,7 +42,8 @@ class SubmissionsController < ApplicationController
   rescue => e
     Rails.logger.error "An error occurred while trying to create submission #{e}"
     refund_payment(charge)
-    redirect_to new_submission_path
+    flash.now[:danger] = 'An error happened while trying to process your payment. We have not charged your card yet. Please, try again'
+    render :new
   end
 
   private
@@ -78,7 +80,7 @@ class SubmissionsController < ApplicationController
       end
 
       refund = Stripe::Refund.create(
-          :charge => charge.charge_id
+          :charge => charge.id
       )
 
       Rails.logger.info 'A refund had to be made since an error happened after taking a payment'

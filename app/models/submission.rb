@@ -1,10 +1,13 @@
 class Submission < ApplicationRecord
   has_many :camper_submissions, autosave: true
   belongs_to :parent
+  belongs_to :user
 
-  def add_campers_and_parent_from_registration_cart(registration_cart)
+  def add_campers_and_parent_from_registration_cart(registration_cart, user)
     add_campers_from_registration_cart(registration_cart)
     add_parent_from_registration_cart(registration_cart.parent)
+    self.user = user
+    self.email = registration_cart.parent.email
   end
 
   def add_campers_from_registration_cart(registration_cart)

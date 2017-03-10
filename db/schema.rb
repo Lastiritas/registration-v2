@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308040803) do
+ActiveRecord::Schema.define(version: 20170310032941) do
 
   create_table "camp_sessions", force: :cascade do |t|
     t.string   "name"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170308040803) do
     t.datetime "updated_at",                          null: false
     t.integer  "parent_id"
     t.integer  "user_id"
+    t.string   "email"
     t.index ["parent_id"], name: "index_submissions_on_parent_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end

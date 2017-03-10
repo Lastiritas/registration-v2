@@ -1,7 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">Camper Information</h3>
 
-<h1>Register a camper</h1>
+        <%= render partial: 'form', locals: {camper: @camper, camp_sessions: @camp_sessions, registration_cart: @registration_cart} %>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
 
-<%= render partial: 'form', locals: {camper: @camper, camp_sessions: @camp_sessions} %>
-
-<%= link_to 'Back', registration_cart_path(@registration_cart) %>

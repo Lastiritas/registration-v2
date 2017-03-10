@@ -21,6 +21,7 @@ class CampersController < ApplicationController
     @camper = Camper.new(camper_params)
     @camper.registration_cart = @registration_cart
     @camper.parent = @registration_cart.parent
+    @camper.user = current_user
 
     date = nil
     begin
@@ -32,7 +33,7 @@ class CampersController < ApplicationController
     respond_to do |format|
       # Now make sure the camper age is allowed for the chosen camp session
       if @camper.invalid? or !CampSession.session_valid_for_camper?(date, camper_params[:camp_session_id])
-        flash.now[:error] = "Please select the week that corresponds to the camper's age"
+        flash.now[:danger] = "Please select the week that corresponds to the camper's age"
         format.html { render :new }
       elsif @camper.save
         format.html { redirect_to registration_cart_path(@registration_cart.id) }

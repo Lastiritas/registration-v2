@@ -1,33 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">My Applications</h3>
 
-<h1>Home Page for users</h1>
+        <div class="application-button">
+          <%= link_to 'New Application', new_parent_path, class:'btn btn-info' %>
+        </div>
+        <br>
+
+        <% if @submissions.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Camper Name</th>
+                <th>Week</th>
+                <th>Dates</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @submissions.each do |submission| %>
+                  <% submission.camper_submissions.each do |camper_submission| %>
+                      <tr>
+                        <td><%= "#{camper_submission.camper.first_name} #{camper_submission.camper.last_name}" %></td>
+                        <td><%= camper_submission.camp_session.name %></td>
+                        <td><%= getMonthDate(camper_submission.camp_session.start_date, camper_submission.camp_session.end_date) %></td>
+                        <td><%= camper_submission.camp_session.year %></td>
+                      </tr>
+                  <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
 
 
 
-<br>
 
-<%= link_to 'New Application', new_parent_path %>
-
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Year</th>
-    <th>Week</th>
-    <th>Dates</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @submissions.each do |submission| %>
-    <% submission.camper_submissions.each do |camper_submission| %>
-      <tr>
-        <td><%= "#{camper_submission.camper.first_name} #{camper_submission.camper.last_name}" %></td>
-        <td><%= camper_submission.camp_session.year %></td>
-        <td><%= camper_submission.camp_session.name %></td>
-        <td><%= getMonthDate(camper_submission.camp_session.start_date, camper_submission.camp_session.end_date) %></td>
-      </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>

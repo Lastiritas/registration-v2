@@ -1,75 +1,140 @@
-<p id="notice"><%= notice %></p>
-<% if flash[:error].present? %>
-    <div id="error_explanation">
-      <p><%= flash[:error] %></p>
-    </div>
-<% end %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+          <h3 class="section">Registration
+            <span>
+              <%= link_to edit_parent_path(@parent), class: 'btn btn-link' do %>
+                <i class="fa fa-pencil fa-fw"></i> Edit
+              <% end %>
+            </span>
+          </h3>
 
-<p>
-  <strong>First name:</strong>
-  <%= @parent.first_name %>
-</p>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">First Name</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @parent.first_name %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Last Name</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @parent.last_name %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Address</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @parent.address %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">E-mail</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @parent.email %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Home Phone</label>
+            <div class="col-sm-8">
+              <p class="form-control-static">
+                <% if @parent.home_phone_number.blank? %>
+                  None
+                <% else %>
+                  <%= @parent.home_phone_number %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Cell Phone</label>
+            <div class="col-sm-8">
+              <p class="form-control-static">
+                <% if @parent.cell_phone_number.blank? %>
+                    None
+                <% else %>
+                    <%= @parent.cell_phone_number %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Work Phone</label>
+            <div class="col-sm-8">
+              <p class="form-control-static">
+                <% if @parent.work_phone_number.blank? %>
+                    None
+                <% else %>
+                    <%= @parent.work_phone_number %>
+                <% end %>
+              </p>
+            </div>
+          </div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @parent.last_name %>
-</p>
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <% if !@registration_cart.campers.any? %>
+                <%= link_to 'Cancel', parents_path, class:'btn btn-danger' %>
+              <% end %>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <div class="pull-right">
+                <span>
+                  <%= link_to new_camper_path, class: 'btn btn-success' do %>
+                    <i class="fa fa-plus fa-fw"></i> Add Camper
+                  <% end %>
+                </span>
+              </div>
+            </div>
+          </div>
 
-<p>
-  <strong>Address:</strong>
-  <%= @parent.address %>
-</p>
+          <div class="camper-list">
+            <% if @registration_cart.campers.reload.any? %>
+              <table class="table custom-border">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Week</th>
+                    <th>Ages</th>
+                    <th>Dates</th>
+                    <th>Fee</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
 
-<p>
-  <strong>Email:</strong>
-  <%= @parent.email %>
-</p>
+                <tbody>
+                  <% @registration_cart.campers.each do |camper| %>
+                    <tr class="info">
+                      <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
+                      <td><%= camper.camp_session.name %></td>
+                      <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
+                      <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
+                      <td><%= number_to_currency(camper.camp_session.fee) %></td>
+                      <td><%= link_to 'Edit', edit_camper_path(camper) %></td>
+                      <td><%= link_to 'Remove', camper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <br>
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <%= link_to 'Cancel', parents_path, class:'btn btn-danger' %>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="pull-right">
+                    <%= link_to 'Checkout', new_submission_path, class:'btn btn-success' %>
+                  </div>
+                </div><!-- col-md-6 -->
+              </div><!-- row -->
+            <% end %>
+          </div><!-- camper-list -->
 
-<p>
-  <strong>Home phone number:</strong>
-  <%= @parent.home_phone_number %>
-</p>
+        </form>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
 
-<p>
-  <strong>Cell phone number:</strong>
-  <%= @parent.cell_phone_number %>
-</p>
 
-<p>
-  <strong>Work phone number:</strong>
-  <%= @parent.work_phone_number %>
-</p>
-
-<%= link_to 'Edit', edit_parent_path(@parent) %> |
-<%= link_to 'Add Camper', new_camper_path %>
-<div class="camper-list">
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Week</th>
-      <th>Ages</th>
-      <th>Dates</th>
-      <th>Fee</th>
-      <th colspan="2"></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @registration_cart.campers.reload.each do |camper| %>
-        <tr>
-          <td><%= "#{camper.first_name} #{camper.last_name}" %></td>
-          <td><%= camper.camp_session.name %></td>
-          <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
-          <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
-          <td><%= number_to_currency(camper.camp_session.fee) %></td>
-          <td><%= link_to 'Edit', edit_camper_path(camper) %></td>
-          <td><%= link_to 'Remove', camper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
-<%= link_to 'TODO: Return to main screen for parents', registration_cart_path %>
-<%= link_to 'Checkout', new_submission_path %>

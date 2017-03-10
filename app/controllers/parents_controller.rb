@@ -8,10 +8,7 @@ class ParentsController < ApplicationController
   # GET /parents
   # GET /parents.json
   def index
-    @submissions = Submission.joins(:parent)
-                       .where("parents.email = '#{current_user.email}' OR submissions.user_id = #{current_user.id}")
-
-    puts @submissions.inspect
+    @submissions = Submission.where(user: current_user).or(Submission.where(email: current_user.email))
   end
 
   # GET /parents/1
@@ -33,6 +30,7 @@ class ParentsController < ApplicationController
   def create
     @parent = Parent.new(parent_params)
     @parent.registration_cart = @registration_cart
+    @parent.user = current_user
 
     respond_to do |format|
       if @parent.save

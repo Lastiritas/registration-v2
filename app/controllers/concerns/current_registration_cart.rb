@@ -4,7 +4,7 @@ module CurrentRegistrationCart
   private
   def set_or_create_registration_cart
     if !registration_cart_exists
-      @registration_cart = RegistrationCart.create
+      @registration_cart = RegistrationCart.create(user: current_user)
       session[:registration_cart_id] = @registration_cart.id
     end
   end
@@ -29,7 +29,7 @@ module CurrentRegistrationCart
 
   def registration_cart_exists
     @registration_cart = RegistrationCart.find(session[:registration_cart_id])
-    return true
+    return @registration_cart.user.id == current_user.id
   rescue ActiveRecord::RecordNotFound
     return false
   end

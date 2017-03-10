@@ -1,5 +1,13 @@
-<h1>Sign up</h1>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-heading center">
+        <h1>Sign up</h1>
+      </div>
 
-<%= render 'form', user: @user %>
-
-<%= link_to 'Back', users_path %>
+      <div class="panel-body">
+        <%= render 'form', user: @user %>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->

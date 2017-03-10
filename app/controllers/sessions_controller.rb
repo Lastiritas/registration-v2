@@ -2,15 +2,15 @@ class SessionsController < ApplicationController
 
   # Log in form
   def new
-    @user = User.new
+    if logged_in?
+      redirect_to parents_path
+    else
+      @user = User.new
+    end
   end
 
   def create
-    user = User.from_omniauth(env['omniauth.auth'])
-    if is_from_google(user)
-      log_in(user)
-      redirect_to parents_path
-    else
+    if request.env['omniauth.auth'].nil?
       user = User.find_by(email: params[:session][:email].downcase)
 
       if user and user.authenticate(params[:session][:password])
@@ -28,6 +28,14 @@ class SessionsController < ApplicationController
         flash.now[:danger] = 'Invalid email/password combination'
         render :new
       end
+    else
+      user = User.from_omniauth(request.env['omniauth.auth'])
+      if is_from_auth(user)
+        log_in(user)
+        redirect_to parents_path
+      else
+        redirect_to root_url
+      end
     end
   end
 
@@ -40,7 +48,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def is_from_google(user)
+  def is_from_auth(user)
     puts user.inspect
     !user.nil? and user.respond_to?('provider') and (user.provider == 'google_oauth2' or user.provider == 'facebook')
   end
