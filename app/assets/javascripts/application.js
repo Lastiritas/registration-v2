@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-table
 //= require pickadate/picker
 //= require pickadate/picker.date
 //= require pickadate/picker.time

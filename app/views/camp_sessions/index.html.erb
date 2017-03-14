@@ -1,47 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">Camp Sessions
+            <span>
+              <div class="pull-right">
+                <span>
+                  <%= link_to new_camp_session_path, class: 'btn btn-success btn-sm' do %>
+                    <i class="fa fa-plus fa-fw"></i> New Camp Session
+                  <% end %>
+                </span>
+              </div>
+            </span>
+        </h3>
 
-<h1>Camp Sessions</h1>
+        <div class="camp-session-list">
+          <table class="table custom-border">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Ages</th>
+              <th>Gender</th>
+              <th>Start date</th>
+              <th>End date</th>
+              <th>Spots</th>
+              <th>Fee</th>
+              <th>Enabled</th>
+              <th colspan="2"></th>
+            </tr>
+            </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Capacity</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Year</th>
-      <th>Remaining</th>
-      <th>Gender</th>
-      <th>Fee</th>
-      <th>Minimum age</th>
-      <th>Maximum age</th>
-      <th>Enabled</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @camp_sessions.each do |camp_session| %>
-      <tr>
-        <td><%= camp_session.name %></td>
-        <td><%= camp_session.capacity %></td>
-        <td><%= camp_session.start_date %></td>
-        <td><%= camp_session.end_date %></td>
-        <td><%= camp_session.year %></td>
-        <td><%= camp_session.remaining %></td>
-        <td><%= camp_session.gender %></td>
-        <td><%= camp_session.fee %></td>
-        <td><%= camp_session.minimum_age %></td>
-        <td><%= camp_session.maximum_age %></td>
-        <td><%= camp_session.enabled %></td>
-        <td><%= link_to 'Show', camp_session %></td>
-        <td><%= link_to 'Edit', edit_camp_session_path(camp_session) %></td>
-        <td><%= link_to 'Destroy', camp_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Camp Session', new_camp_session_path %>
+            <tbody>
+            <% @camp_sessions.each do |camp_session| %>
+                <tr>
+                  <td><%= camp_session.name %></td>
+                  <td><%= "#{camp_session.minimum_age}-#{camp_session.maximum_age}" %></td>
+                  <td><%= camp_session.gender %></td>
+                  <td><%= getFormattedDate(camp_session.start_date) %></td>
+                  <td><%= getFormattedDate(camp_session.end_date) %></td>
+                  <td><%= "#{camp_session.remaining}/#{camp_session.capacity}" %></td>
+                  <td><%= number_to_currency(camp_session.fee) %></td>
+                  <td><%= camp_session.enabled ? 'True' : 'False' %></td>
+                  <td><%= link_to 'Show', camp_session %></td>
+                  <td><%= link_to 'Edit', edit_camp_session_path(camp_session) %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div><!-- camp-session-list -->
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->

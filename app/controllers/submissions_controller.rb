@@ -1,13 +1,7 @@
 class SubmissionsController < ApplicationController
   include CurrentRegistrationCart
   before_action :require_log_in
-  before_action :validate_parent_and_camper_are_set_under_registration_cart, except: [:index]
-
-  # GET /submissions
-  # GET /submissions.json
-  def index
-    @submissions = Submission.all
-  end
+  before_action :validate_parent_and_camper_are_set_under_registration_cart
 
   # GET /submissions/new
   def new
@@ -29,7 +23,8 @@ class SubmissionsController < ApplicationController
         if @submission.save
           RegistrationCart.destroy(session[:registration_cart_id])
           session[:registration_cart_id] = nil
-          format.html { redirect_to parents_path, flash[:success] => 'Your registration was successfully added.' }
+          flash.now[:success] = 'Your registration was successfully added.'
+          format.html { redirect_to parents_path }
         else
           refund_payment(charge)
           flash.now[:danger] = 'An error happened while trying to process your payment. We have not charged your card yet. Please, try again'

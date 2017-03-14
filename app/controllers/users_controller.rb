@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_log_in, except: [:new, :create]
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :update, :show]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user,  only: [:destroy, :index, :show]
 

@@ -11,6 +11,6 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 
-%w( sessions account_activations camp_sessions campers parents password_resets registration_carts submissions users ).each do |controller|
+%w( sessions account_activations camp_sessions campers parents password_resets registration_carts submissions users admin ).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.css"]
 end

@@ -1,9 +1,10 @@
 class ParentsController < ApplicationController
   include CurrentRegistrationCart
   before_action :require_log_in
-  before_action :set_or_create_registration_cart, only: [:create, :show, :update]
+  before_action :set_or_create_registration_cart, only: [:create, :update]
   before_action :validate_parent_is_set_under_registration_cart, only: [:edit]
-  before_action :set_parent, only: [:show, :edit, :update]
+  before_action :validate_camper_belongs_to_user, only: [:show]
+  before_action :set_parent, only: [:edit, :update]
 
   # GET /parents
   # GET /parents.json
@@ -11,8 +12,6 @@ class ParentsController < ApplicationController
     @submissions = Submission.where(user: current_user).or(Submission.where(email: current_user.email))
   end
 
-  # GET /parents/1
-  # GET /parents/1.json
   def show
   end
 
@@ -66,5 +65,14 @@ class ParentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
       params.require(:parent).permit(:first_name, :last_name, :address, :email, :home_phone_number, :cell_phone_number, :work_phone_number)
+    end
+
+    def validate_camper_belongs_to_user
+      @camper_submission = CamperSubmission.find(params[:id])
+      @submission = @camper_submission.submission
+
+      if !current_user.admin and (@submission.user_id != current_user.id and @submission.email != current_user.email)
+        redirect_to parents_path
+      end
     end
 end

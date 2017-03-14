@@ -1,59 +1,72 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <h3 class="section">Camp Session
+            <span>
+              <%= link_to edit_camp_session_path(@camp_session), class: 'btn btn-link' do %>
+                <i class="fa fa-pencil fa-fw"></i> Edit
+              <% end %>
+            </span>
+        </h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @camp_session.name %>
-</p>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @camp_session.name %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Ages</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= "#{@camp_session.minimum_age}-#{@camp_session.maximum_age}" %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Gender</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @camp_session.gender %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Start Date</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= getFormattedDate(@camp_session.start_date) %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">End Date</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= getFormattedDate(@camp_session.end_date) %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Spots</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= "#{@camp_session.remaining}/#{@camp_session.capacity}" %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Fee</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= number_to_currency(@camp_session.fee) %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Enabled</label>
+            <div class="col-sm-8">
+              <p class="form-control-static"><%= @camp_session.enabled ? 'True' : 'False' %></p>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <%= link_to 'Back', camp_sessions_path, class:'btn btn-danger' %>
+          </div><!-- col-md-6 -->
+        </div><!-- row -->
 
-<p>
-  <strong>Capacity:</strong>
-  <%= @camp_session.capacity %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @camp_session.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @camp_session.end_date %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @camp_session.year %>
-</p>
-
-<p>
-  <strong>Remaining:</strong>
-  <%= @camp_session.remaining %>
-</p>
-
-<p>
-  <strong>Gender:</strong>
-  <%= @camp_session.gender %>
-</p>
-
-<p>
-  <strong>Fee:</strong>
-  <%= @camp_session.fee %>
-</p>
-
-<p>
-  <strong>Minimum age:</strong>
-  <%= @camp_session.minimum_age %>
-</p>
-
-<p>
-  <strong>Maximum age:</strong>
-  <%= @camp_session.maximum_age %>
-</p>
-
-<p>
-  <strong>Enabled:</strong>
-  <%= @camp_session.enabled %>
-</p>
-
-<%= link_to 'Edit', edit_camp_session_path(@camp_session) %> |
-<%= link_to 'Back', camp_sessions_path %>
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->

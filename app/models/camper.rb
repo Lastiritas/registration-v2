@@ -1,5 +1,5 @@
 class Camper < ApplicationRecord
-  enum gender: [:male, :female]
+  enum gender: [:not_defined, :Male, :Female, :Both]
   belongs_to :camp_session
   belongs_to :registration_cart
   belongs_to :parent

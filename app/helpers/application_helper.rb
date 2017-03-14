@@ -15,4 +15,8 @@ module ApplicationHelper
       "#{starting.strftime("%b %d")} - #{ending.strftime("%b %d")}"
     end
   end
+
+  def getFormattedDate(datetime)
+    getDate(datetime).strftime("%B %d, %Y")
+  end
 end

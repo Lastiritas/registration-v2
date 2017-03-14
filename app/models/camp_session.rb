@@ -1,4 +1,5 @@
 class CampSession < ApplicationRecord
+  enum gender: [:not_defined, :Male, :Female, :Both]
   has_many :campers
   has_many :camper_submissions
   before_destroy :ensure_not_referenced_by_any_camper
@@ -17,9 +18,6 @@ class CampSession < ApplicationRecord
 
   # Returns true if the given age is between minimum_age and maximum_age
   def self.age_between_range?(session, birth_date)
-    puts '----------------------------------------------------------'
-    puts session.inspect
-    puts birth_date
     age = self.getFutureAge(session, birth_date)
     session.minimum_age <= age and session.maximum_age >= age
   end

@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get    'auth/:provider/callback', to: 'sessions#create'
   get    'auth/failure', to: 'sessions#new'
+  get    'admin',    to: 'admin#index', as: :admin_index
+  get    'admin/registrations', to: 'admin#registrations', as: :admin_registrations
 
   resources :users
-  resources :submissions,         only: [:index, :new, :create]
+  resources :submissions,         only: [:new, :create]
   resources :parents,             except: [:destroy]
   resources :campers,             except: [:index, :show]
   resources :registration_carts,  only: [:show, :destroy]

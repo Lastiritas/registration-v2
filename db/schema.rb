@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310032941) do
+ActiveRecord::Schema.define(version: 20170313234709) do
 
   create_table "camp_sessions", force: :cascade do |t|
     t.string   "name"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170310032941) do
     t.integer  "registration_cart_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "gender"
+    t.integer  "gender"
     t.text     "address"
     t.datetime "birth_date"
     t.datetime "created_at",           null: false

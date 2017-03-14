@@ -1,72 +1,76 @@
 <%= form_for(camp_session) do |f| %>
-  <% if camp_session.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(camp_session.errors.count, "error") %> prohibited this camp_session from being saved:</h2>
-
-      <ul>
-      <% camp_session.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, size: 20, class: 'form-control' %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, size: 20 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :minimum_age %>
+      <%= f.number_field :minimum_age, min: 1, max: 100, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :capacity %>
-    <%= f.number_field :capacity, min: 1, max: 200 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :maximum_age %>
+      <%= f.number_field :maximum_age, min: 1, max: 100, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= date_field(:camp_session, :start_date, class:'datepicker_session') %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_date %>
-    <%= date_field(:camp_session, :end_date, class:'datepicker_session') %>
-  </div>
-
-  <div class="field">
-    <%= f.label :year %>
-    <%= f.number_field :year, min: 2017, max: 2999 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :remaining %>
-    <%= f.number_field :remaining, min: 0, max: 200 %>
-  </div>
-
-  <div class="field">
     <%= f.label :gender %>
-    <%= f.number_field :gender %>
-  </div>
+    <div class="form-group">
+      <label class="radio-inline">
+        <%= f.radio_button :gender, :Male %> Boy
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :gender, :Female %> Girl
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :gender, :Both %> Both
+      </label>
+    </div>
 
-  <div class="field">
-    <%= f.label :fee %>
-    <%= f.text_field :fee, min: 1, max: 1000 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :start_date %>
+      <%= date_field(:camp_session, :start_date, class:'datepicker_session form-control') %>
+    </div>
 
-  <div class="field">
-    <%= f.label :minimum_age %>
-    <%= f.number_field :minimum_age, min: 1, max: 100 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :end_date %>
+      <%= date_field(:camp_session, :end_date, class:'datepicker_session form-control') %>
+    </div>
 
-  <div class="field">
-    <%= f.label :maximum_age %>
-    <%= f.number_field :maximum_age, min: 1, max: 100 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :year %>
+      <%= f.number_field :year, min: 2017, max: 2999, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :enabled %>
-    <%= f.check_box :enabled %>
-  </div>
+    <div class="form-group">
+      <%= f.label :remaining %>
+      <%= f.number_field :remaining, min: 0, max: 200, class: 'form-control' %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+      <%= f.label :capacity %>
+      <%= f.number_field :capacity, min: 1, max: 200, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :fee %>
+      <%= f.number_field :fee, min: 1, max: 1000, class: 'form-control' %>
+      <div class="checkbox">
+        <%= f.label :enabled do %>
+            <%= f.check_box :enabled %> Enabled
+        <% end %>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <%= link_to 'Back', camp_sessions_path, class: 'btn btn-danger' %>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="actions pull-right">
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
 <% end %>

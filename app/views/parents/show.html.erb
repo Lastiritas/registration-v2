@@ -1,1 +1,141 @@
-<p>TODO: Details for parent submission</p>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary main-content">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1 col-sm-10 col-sm-offset-1">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-10 col-sm-offset-1 control-label section">Camper Information</label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">First Name</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @camper_submission.camper.first_name %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Last Name</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @camper_submission.camper.last_name %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Gender</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @camper_submission.camper.gender %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Birth Date</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= getFormattedDate(@camper_submission.camper.birth_date) %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Address</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @camper_submission.camper.address %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-10 col-sm-offset-1 control-label section">Camp Session</label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Week</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @camper_submission.camp_session.name %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Dates</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= "#{getMonthDate(@camper_submission.camp_session.start_date, @camper_submission.camp_session.end_date)}, #{@camper_submission.camp_session.year}" %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Session fee</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= number_to_currency(@camper_submission.camp_session.fee) %></p>
+                </div>
+              </div>
+            </form>
+          </div><!-- col-md-5 -->
+          <div class="col-md-5 col-sm-10 col-sm-offset-1">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-10 col-sm-offset-1 control-label section">Parent Information</label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">First Name</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @submission.parent.first_name %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Last Name</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @submission.parent.last_name %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Address</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @submission.parent.address %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">E-mail</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static"><%= @submission.parent.email %></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Home Phone</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static">
+                    <% if @submission.parent.home_phone_number.blank? %>
+                        None
+                    <% else %>
+                        <%= @submission.parent.home_phone_number %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Cell Phone</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static">
+                    <% if @submission.parent.cell_phone_number.blank? %>
+                        None
+                    <% else %>
+                        <%= @submission.parent.cell_phone_number %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Work Phone</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static">
+                    <% if @submission.parent.work_phone_number.blank? %>
+                        None
+                    <% else %>
+                        <%= @submission.parent.work_phone_number %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <%= link_to 'Back', parents_path, class: 'btn btn-danger' %>
+          </div>
+        </div>
+
+      </div><!-- panel-body -->
+    </div><!-- panel-primary -->
+  </div><!-- col-md-4 -->
+</div><!-- row -->
