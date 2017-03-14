@@ -1,5 +1,6 @@
 class CampSessionsController < ApplicationController
   before_action :set_camp_session, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user
 
   # GET /camp_sessions
   # GET /camp_sessions.json
