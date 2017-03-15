@@ -31,48 +31,77 @@
       <%= date_field(:camper, :birth_date, class:'datepicker form-control') %>
     </div>
 
-    <div class="camp-session-selection form-group">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th></th>
-          <th>Week</th>
-          <th>Ages</th>
-          <th>Dates</th>
-          <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% camp_sessions.each do |session| %>
+    <% if !camp_sessions.nil? %>
+        <div class="camp-session-selection form-group">
+          <table class="table table-hover">
+            <thead>
             <tr>
-              <td class="field session-<%= session.id %>">
-                <%= f.radio_button(:camp_session_id, session.id, disabled:false) %>
-              </td>
-              <td>
-                <label for="camper_camp_session_id_<%= session.id %>">
-                  <%= session.name %>
-                </label>
-              </td>
-              <td>
-                <label for="camper_camp_session_id_<%= session.id %>">
-                  <%= "#{session.minimum_age}-#{session.maximum_age}" %>
-                </label>
-              </td>
-              <td>
-                <label for="camper_camp_session_id_<%= session.id %>">
-                  <%= getMonthDate(session.start_date, session.end_date) %>
-                </label>
-              </td>
-              <td>
-                <label for="camper_camp_session_id_<%= session.id %>">
-                  <%= number_to_currency(session.fee) %>
-                </label>
-              </td>
+              <th></th>
+              <th>Week</th>
+              <th>Ages</th>
+              <th>Dates</th>
+              <th>Price</th>
             </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
+            </thead>
+              <tbody>
+                <% camp_sessions.each do |session| %>
+                <tr>
+                  <td class="field session-<%= session.id %>">
+                    <%= f.radio_button(:camp_session_id, session.id) %>
+                  </td>
+                  <td>
+                    <label for="camper_camp_session_id_<%= session.id %>">
+                      <%= session.name %>
+                    </label>
+                  </td>
+                  <td>
+                    <label for="camper_camp_session_id_<%= session.id %>">
+                      <%= "#{session.minimum_age}-#{session.maximum_age}" %>
+                    </label>
+                  </td>
+                  <td>
+                    <label for="camper_camp_session_id_<%= session.id %>">
+                      <%= getMonthDate(session.start_date, session.end_date) %>
+                    </label>
+                  </td>
+                  <td>
+                    <label for="camper_camp_session_id_<%= session.id %>">
+                      <%= number_to_currency(session.fee) %>
+                    </label>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+          </table>
+        </div>
+        <div class="dynamic-camp-session-selection hidden">
+          <table id="table" data-toggle="table" data-click-to-select="true" data-single-select="true" data-id-field="camp_session_id" data-select-item-name="camper[camp_session_id]">
+            <thead>
+            <tr>
+              <th data-field="camp_session_id" data-checkbox="true"></th>
+              <th data-field="name">Week</th>
+              <th data-field="ages">Ages</th>
+              <th data-field="dates">Dates</th>
+              <th data-field="price">Price</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+    <% else %>
+        <div class="dynamic-camp-session-selection">
+          <table id="table" data-toggle="table" data-click-to-select="true" data-single-select="true" data-id-field="camp_session_id" data-select-item-name="camper[camp_session_id]">
+            <thead>
+            <tr>
+              <th data-field="camp_session_id" data-checkbox="true"></th>
+              <th data-field="name">Week</th>
+              <th data-field="ages">Ages</th>
+              <th data-field="dates">Dates</th>
+              <th data-field="price">Price</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+    <% end %>
     <br>
 
     <div class="row">

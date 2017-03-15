@@ -81,7 +81,7 @@
             <div class="col-md-6 col-sm-6">
               <div class="pull-right">
                 <span>
-                  <%= link_to new_camper_path, class: 'btn btn-success' do %>
+                  <%= link_to new_camper_path, method: :get, class: 'btn btn-success' do %>
                     <i class="fa fa-plus fa-fw"></i> Add Camper
                   <% end %>
                 </span>
@@ -111,7 +111,7 @@
                       <td><%= "#{camper.camp_session.minimum_age}-#{camper.camp_session.maximum_age}" %></td>
                       <td><%= getMonthDate(camper.camp_session.start_date, camper.camp_session.end_date) %></td>
                       <td><%= number_to_currency(camper.camp_session.fee) %></td>
-                      <td><%= link_to 'Edit', edit_camper_path(camper) %></td>
+                      <td><%= link_to 'Edit', edit_camper_path(camper), method: :get %></td>
                       <td><%= link_to 'Remove', camper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                     </tr>
                   <% end %>

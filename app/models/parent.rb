@@ -3,10 +3,12 @@ class Parent < ApplicationRecord
   belongs_to :user
   has_many :campers
   has_many :submissions
-  validates :first_name, :last_name, :address, :email, presence: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :first_name, :last_name, :address, presence: true
   validates :first_name, :last_name, length: { maximum: 20}
   validates :address, length: { maximum: 80 }
   validates :email, :home_phone_number, :cell_phone_number, :work_phone_number, length: {maximum: 40}
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
   validate :at_least_one_phone_number_should_be_provided
 
   def at_least_one_phone_number_should_be_provided

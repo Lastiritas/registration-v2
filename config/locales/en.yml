@@ -50,7 +50,7 @@ en:
             registration_cart_id:
               blank: "Please refresh your page and register the camper again"
             camp_session_id:
-              blank: "Select a week"
+              blank: "*"
             first_name:
               blank: "You are missing the camper's first name"
             last_name:

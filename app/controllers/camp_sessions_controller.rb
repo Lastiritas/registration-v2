@@ -22,6 +22,16 @@ class CampSessionsController < ApplicationController
   def edit
   end
 
+  def sessions_by_gender
+    puts params[:gender]
+    @camp_sessions = CampSession.where(gender: params[:gender]).where(enabled: true)
+    puts @camp_sessions.inspect
+
+    respond_to do |format|
+      format.json
+    end
+  end
+
   # POST /camp_sessions
   # POST /camp_sessions.json
   def create

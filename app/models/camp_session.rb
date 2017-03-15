@@ -6,14 +6,14 @@ class CampSession < ApplicationRecord
   validates :name, :capacity, :start_date, :end_date, :remaining, :gender, :fee, :minimum_age, :maximum_age, presence: true
   validates :fee, numericality: {greater_than_or_equal_to: 0.01}
 
-  def self.session_valid_for_camper?(birth_date, camp_session_id)
+  def self.session_valid_for_camper?(birth_date, camp_session_id, gender)
     if birth_date.nil? or camp_session_id.nil? or camp_session_id == 0
       return false
     end
 
     camp_session = CampSession.find(camp_session_id)
 
-    !camp_session.nil? and self.age_between_range?(camp_session, birth_date)
+    !camp_session.nil? and self.age_between_range?(camp_session, birth_date) and camp_session.gender == gender
   end
 
   # Returns true if the given age is between minimum_age and maximum_age

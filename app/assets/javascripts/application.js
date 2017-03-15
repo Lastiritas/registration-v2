@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap-table
+//= require turbolinks
 //= require pickadate/picker
 //= require pickadate/picker.date
 //= require pickadate/picker.time

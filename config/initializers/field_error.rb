@@ -12,8 +12,6 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   elements = Nokogiri::HTML::DocumentFragment.parse(html_tag).css "label, " + form_fields.join(', ')
 
   elements.each do |e|
-    puts '----------------------'
-    puts e.inspect
     if e.node_name.eql? 'label'
       html = %(<div class="control-group has-error">#{e}</div>).html_safe
     elsif form_fields.include? e.node_name

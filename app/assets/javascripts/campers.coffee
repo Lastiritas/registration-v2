@@ -10,6 +10,22 @@ ready = ->
     max: true
   })
 
-console.log('here')
+  $('.radio-inline input[type=radio]').on 'change', (event) ->
+    event.preventDefault()
+    console.log('yo')
+    $.ajax
+      url: "/camp_sessions/#{event.currentTarget.value}.json"
+      dataType: "json"
+      error: (jqXHR, textStatus, errorThrown) ->
+        $('#table').addClass('hidden')
+      success: (data, textStatus, jqXHR) ->
+        $('#table').bootstrapTable('load', data.camp_sessions)
+        $('#table tbody tr').removeClass('selected');
+        $('.bs-checkbox input[type=checkbox]').prop('checked', false);
+        $('.camp-session-selection').addClass('hidden');
+        $('.dynamic-camp-session-selection').removeClass('hidden');
+
+
+
 $(document).ready(ready)
 $(document).on('turbolinks:load', ready)
