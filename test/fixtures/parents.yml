@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: MyString
-  last_name: MyString
-  address: MyText
-  email: MyString
-  home_phone_number: MyString
-  cell_phone_number: MyString
-  work_phone_number: MyString
+tommy:
+  first_name: Tommy
+  last_name: Dubt
+  address: 123 Winnipeg Street, MB
+  email: tommy@ex.com
+  home_phone_number: 147-584-7858
+  cell_phone_number: 852-874-9635
+  work_phone_number: 147-587-8545 Ext. 54
+  user: travis
 
-two:
-  first_name: MyString
-  last_name: MyString
-  address: MyText
-  email: MyString
-  home_phone_number: MyString
-  cell_phone_number: MyString
-  work_phone_number: MyString
+victoria:
+  first_name: Victoria
+  last_name: Shock
+  address: 741 Young St, MB
+  email: victoria@ex.com
+  home_phone_number: 154-789-5247
+  user: mark

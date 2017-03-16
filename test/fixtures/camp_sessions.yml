@@ -7,7 +7,7 @@ teen:
   end_date: 2017-07-11 17:34:55
   year: 2017
   remaining: 50
-  gender: 1
+  gender: :Male
   fee: 345
   minimum_age: 13
   maximum_age: 15
@@ -20,7 +20,7 @@ senior:
   end_date: 2017-07-18 17:34:55
   year: 2017
   remaining: 50
-  gender: 1
+  gender: :Female
   fee: 335
   minimum_age: 12
   maximum_age: 14

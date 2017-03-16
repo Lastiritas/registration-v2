@@ -2,8 +2,10 @@
 
 one:
   submission: one
-  camper: one
+  camper: joe
+  camp_session: teen
 
 two:
   submission: two
-  camper: two
+  camper: susan
+  camp_session: senior

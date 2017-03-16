@@ -3,7 +3,7 @@ class CampSession < ApplicationRecord
   has_many :campers
   has_many :camper_submissions
   before_destroy :ensure_not_referenced_by_any_camper
-  validates :name, :capacity, :start_date, :end_date, :remaining, :gender, :fee, :minimum_age, :maximum_age, presence: true
+  validates :name, :capacity, :start_date, :end_date, :remaining, :gender, :fee, :year, :minimum_age, :maximum_age, presence: true
   validates :fee, numericality: {greater_than_or_equal_to: 0.01}
 
   def self.session_valid_for_camper?(birth_date, camp_session_id, gender)
@@ -13,7 +13,7 @@ class CampSession < ApplicationRecord
 
     camp_session = CampSession.find(camp_session_id)
 
-    !camp_session.nil? and self.age_between_range?(camp_session, birth_date) and camp_session.gender == gender
+    !camp_session.nil? and self.age_between_range?(camp_session, birth_date) and camp_session.gender.to_s == gender.to_s
   end
 
   # Returns true if the given age is between minimum_age and maximum_age
