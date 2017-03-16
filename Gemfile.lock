@@ -128,6 +128,7 @@ GEM
       omniauth (~> 1.2)
     password_strength (1.1.4)
       activemodel
+    pg (0.18.4)
     pickadate-rails (3.5.6.0)
       railties (>= 3.1.0)
     public_suffix (2.0.5)
@@ -228,6 +229,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2 (~> 0.2.1)
   password_strength
+  pg (= 0.18.4)
   pickadate-rails
   puma (~> 3.0)
   rails (~> 5.0.1)

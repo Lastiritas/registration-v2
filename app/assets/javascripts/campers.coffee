@@ -14,7 +14,7 @@ ready = ->
     event.preventDefault()
     console.log('yo')
     $.ajax
-      url: "/camp_sessions/#{event.currentTarget.value}.json"
+      url: "/sessions/#{event.currentTarget.value}.json"
       dataType: "json"
       error: (jqXHR, textStatus, errorThrown) ->
         $('#table').addClass('hidden')

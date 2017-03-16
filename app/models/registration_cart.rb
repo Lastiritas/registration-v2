@@ -1,6 +1,6 @@
 class RegistrationCart < ApplicationRecord
-  has_many :campers
-  has_one :parent
+  has_many :campers, dependent: :nullify
+  has_one :parent, dependent: :nullify
   belongs_to :user
 
   def total_price

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get    'auth/failure', to: 'sessions#new'
   get    'admin',    to: 'admin#index', as: :admin_index
   get    'admin/registrations', to: 'admin#registrations', as: :admin_registrations
-  get    'camp_sessions/:gender', to: 'camp_sessions#sessions_by_gender', as: :sessions_by_gender
+  get    'sessions/:gender', to: 'camp_sessions#sessions_by_gender', as: :sessions_by_gender
 
   resources :users
   resources :submissions,         only: [:new, :create]

@@ -1,6 +1,6 @@
 class CampSessionsController < ApplicationController
   before_action :set_camp_session, only: [:show, :edit, :update, :destroy]
-  before_action :admin_user
+  before_action :admin_user, except: [:sessions_by_gender]
 
   # GET /camp_sessions
   # GET /camp_sessions.json
@@ -23,9 +23,7 @@ class CampSessionsController < ApplicationController
   end
 
   def sessions_by_gender
-    puts params[:gender]
     @camp_sessions = CampSession.where(gender: params[:gender]).where(enabled: true)
-    puts @camp_sessions.inspect
 
     respond_to do |format|
       format.json

@@ -15,7 +15,6 @@ class SubmissionsController < ApplicationController
     @parent = @registration_cart.parent
 
     if is_charge_valid(charge)
-      puts charge.inspect
       @submission = Submission.create(:charge_id => charge.id, :amount_paid => charge.amount)
       @submission.add_campers_and_parent_from_registration_cart(@registration_cart, current_user)
 
@@ -38,7 +37,7 @@ class SubmissionsController < ApplicationController
     Rails.logger.error "An error occurred while trying to create submission #{e}"
     refund_payment(charge)
     flash.now[:danger] = 'An error happened while trying to process your payment. We have not charged your card yet. Please, try again'
-    render :new
+    redirect_to new_submission_path
   end
 
   private
